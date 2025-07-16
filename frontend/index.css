@@ -95,7 +95,7 @@
   }
 
   body {
-    @apply bg-white text-foreground;
+    @apply bg-white text-gray-900;
     background: var(--gradient-cosmic);
     min-height: 100vh;
   }
