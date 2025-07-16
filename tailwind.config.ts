@@ -4,9 +4,9 @@ export default {
 	darkMode: ["class"],
 	content: [
 		"./frontend/**/*.{js,ts,jsx,tsx,html}",
-		"./components/**/*.{js,ts,jsx,tsx}",
-		"./pages/**/*.{js,ts,jsx,tsx}",
-		"./index.html",
+		"./frontend/components/**/*.{js,ts,jsx,tsx}",
+		"./frontend/pages/**/*.{js,ts,jsx,tsx}",
+		"./frontend/index.html",
 	],
 	prefix: "",
 	theme: {
