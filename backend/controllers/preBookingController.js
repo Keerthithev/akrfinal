@@ -29,7 +29,11 @@ exports.createPreBooking = async (req, res) => {
 // Get all pre-bookings (admin)
 exports.getAllPreBookings = async (req, res) => {
   try {
-    const bookings = await PreBooking.find().sort({ createdAt: -1 });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const bookings = await PreBooking.find().sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch pre-bookings.' });

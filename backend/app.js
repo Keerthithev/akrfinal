@@ -18,8 +18,21 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:8080',
+  'https://your-netlify-site.netlify.app', // Replace with your actual Netlify URL after deploy
+  'https://akr.lk' // For future use
+];
+
 app.use(cors({
-  origin: ["http://localhost:8080", "http://localhost:3000"],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'), false);
+  },
   credentials: true
 }));
 app.use(cookieParser());

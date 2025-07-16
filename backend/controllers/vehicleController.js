@@ -4,7 +4,11 @@ const Company = require('../models/Company.cjs');
 // List all vehicles for a company
 exports.listVehicles = async (req, res, next) => {
   try {
-    const vehicles = await Vehicle.find({ company: req.params.companyId });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const vehicles = await Vehicle.find({ company: req.params.companyId })
+      .skip((page - 1) * limit)
+      .limit(limit);
     res.json(vehicles);
   } catch (err) {
     next(err);

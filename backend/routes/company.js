@@ -5,7 +5,11 @@ const Company = require('../models/Company.cjs');
 // List all companies
 router.get('/', async (req, res, next) => {
   try {
-    const companies = await Company.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const companies = await Company.find()
+      .skip((page - 1) * limit)
+      .limit(limit);
     res.json(companies);
   } catch (err) {
     next(err);
